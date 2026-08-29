@@ -9,21 +9,13 @@
 
   <style>
     :root {
-      /* Fundo preto fosco */
-      --bg-color: #0d0d0d;
-      
-      /* Cinza fosco translúcido para o efeito Liquid Glass */
-      --card-bg: rgba(30, 30, 32, 0.75);
-      --card-border: rgba(255, 255, 255, 0.08);
-      
-      --text-main: #f1f5f9;
-      --text-muted: #94a3b8;
-      
-      --primary: #6366f1;
-      --primary-hover: #4f46e5;
-      
-      --output-bg: rgba(18, 18, 20, 0.6);
-      --output-hover: rgba(24, 24, 27, 0.8);
+      --bg-color: #09090b;
+      --capsule-bg: rgba(24, 24, 27, 0.65);
+      --capsule-border: rgba(255, 255, 255, 0.08);
+      --text-main: #f4f4f5;
+      --text-muted: #a1a1aa;
+      --accent: #6366f1;
+      --accent-hover: #4f46e5;
     }
 
     * {
@@ -42,96 +34,90 @@
       justify-content: center;
       min-height: 100vh;
       padding: 20px;
-      /* Detalhe opcional para dar profundidade ao fundo preto fosco */
-      background-image: radial-gradient(circle at 50% 20%, #1a1a24 0%, #0d0d0d 100%);
+      background-image: radial-gradient(circle at 50% 10%, #18181b 0%, var(--bg-color) 100%);
     }
 
-    .cipher-card {
+    .cipher-container {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 18px;
-      
-      /* Efeito Liquid Glass / Glassmorphism */
-      background: var(--card-bg);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid var(--card-border);
-      
-      padding: 32px;
-      border-radius: 20px;
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+      gap: 14px;
       width: 100%;
-      max-width: 420px;
+      max-width: 440px;
     }
 
-    h1 {
-      font-size: 1.3rem;
-      color: var(--text-main);
-      text-align: center;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-    }
-
-    .key-container {
+    /* Estilo padrão de Cápsula / Liquid Glass */
+    .capsule {
+      background: var(--capsule-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--capsule-border);
+      border-radius: 28px;
+      padding: 16px 22px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      width: 100%;
-      background: var(--output-bg);
-      padding: 12px 16px;
-      border-radius: 12px;
-      border: 1px solid var(--card-border);
-      font-size: 0.95rem;
-      font-weight: 500;
-    }
-
-    .key-container input {
-      width: 70px;
-      padding: 6px;
-      background: rgba(0, 0, 0, 0.3);
-      color: var(--text-main);
-      border: 1px solid var(--card-border);
-      border-radius: 8px;
-      text-align: center;
-      font-size: 0.95rem;
-      outline: none;
       transition: border-color 0.2s, background 0.2s;
     }
 
-    .key-container input:focus {
-      border-color: var(--primary);
-      background: rgba(0, 0, 0, 0.5);
+    .title-capsule {
+      justify-content: center;
+      font-weight: 600;
+      font-size: 1.1rem;
+      letter-spacing: 0.5px;
+      padding: 18px;
+    }
+
+    .key-capsule {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .key-capsule input {
+      width: 65px;
+      padding: 8px;
+      background: rgba(0, 0, 0, 0.4);
+      color: var(--text-main);
+      border: 1px solid var(--capsule-border);
+      border-radius: 14px;
+      text-align: center;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .key-capsule input:focus {
+      border-color: var(--accent);
+    }
+
+    .textarea-capsule {
+      flex-direction: column;
+      align-items: stretch;
+      padding: 16px;
+      border-radius: 24px;
     }
 
     textarea {
       width: 100%;
-      height: 110px;
-      background: rgba(0, 0, 0, 0.3);
+      height: 100px;
+      background: transparent;
       color: var(--text-main);
-      border: 1px solid var(--card-border);
-      border-radius: 12px;
-      padding: 14px;
+      border: none;
       resize: none;
       font-size: 0.95rem;
       outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
-    }
-
-    textarea:focus {
-      border-color: var(--primary);
-      background: rgba(0, 0, 0, 0.5);
-      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
     }
 
     textarea::placeholder {
       color: var(--text-muted);
     }
 
-    .actions {
-      display: flex;
+    .actions-capsule {
+      padding: 10px;
+      background: transparent;
+      border: none;
+      box-shadow: none;
       gap: 12px;
-      width: 100%;
     }
 
     button {
@@ -139,23 +125,26 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
-      background: var(--primary);
-      color: #ffffff;
+      gap: 8px;
+      background: var(--capsule-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--capsule-border);
+      color: var(--text-main);
       font-weight: 600;
-      border: none;
-      padding: 12px 10px;
-      border-radius: 10px;
+      padding: 14px;
+      border-radius: 24px;
       cursor: pointer;
-      font-size: 0.85rem;
-      transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
-      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     }
 
     button:hover {
-      background: var(--primary-hover);
-      box-shadow: 0 6px 16px rgba(99, 102, 241, 0.5);
-      transform: translateY(-1px);
+      background: var(--accent);
+      border-color: var(--accent);
+      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+      transform: translateY(-2px);
     }
 
     button:active {
@@ -163,45 +152,43 @@
     }
 
     .material-symbols-outlined {
-      font-size: 1.1rem;
+      font-size: 1.2rem;
     }
 
     #output {
       font-size: 0.95rem;
-      background: var(--output-bg);
       color: var(--text-main);
-      border: 1px dashed var(--card-border);
-      padding: 16px;
-      border-radius: 12px;
-      width: 100%;
-      min-height: 70px;
+      min-height: 75px;
       word-break: break-word;
-      display: flex;
-      align-items: center;
       cursor: pointer;
-      transition: background 0.2s, border-color 0.2s;
-      position: relative;
+      border-radius: 24px;
+      padding: 20px;
+      border: 1px dashed var(--capsule-border);
     }
 
     #output:hover {
-      background: var(--output-hover);
-      border-color: var(--primary);
+      background: rgba(30, 30, 35, 0.8);
+      border-color: var(--accent);
     }
   </style>
 </head>
 <body>
 
-  <main class="cipher-card">
-    <h1>Apollo Cipher</h1>
+  <main class="cipher-container">
+    <div class="capsule title-capsule">
+      Apollo Cipher
+    </div>
     
-    <div class="key-container">
+    <div class="capsule key-capsule">
       <label for="shiftKey">Chave de Deslocamento:</label>
       <input type="number" id="shiftKey" value="4" min="1" max="25">
     </div>
 
-    <textarea id="inputText" placeholder="Digite a mensagem aqui..."></textarea>
+    <div class="capsule textarea-capsule">
+      <textarea id="inputText" placeholder="Digite a mensagem aqui..."></textarea>
+    </div>
 
-    <div class="actions">
+    <div class="actions-capsule">
       <button id="encryptBtn">
         <span class="material-symbols-outlined">lock</span>
         Criptografar
@@ -212,7 +199,7 @@
       </button>
     </div>
 
-    <div id="output" title="Clique para copiar">O resultado aparecerá aqui...</div>
+    <div class="capsule" id="output" title="Clique para copiar">O resultado aparecerá aqui...</div>
   </main>
 
   <script>
