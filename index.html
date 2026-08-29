@@ -18,6 +18,8 @@
       --primary: #667eea;
       --primary-hover: #5a67d8;
       --output-bg: #f7fafc;
+      --output-hover: #edf2f7;
+      --success-color: #48bb78;
     }
 
     * {
@@ -79,11 +81,12 @@
       text-align: center;
       font-size: 0.95rem;
       outline: none;
-      transition: border-color 0.2s;
+      transition: border-color 0.2s, background 0.2s;
     }
 
     .key-container input:focus {
       border-color: var(--primary);
+      background: #ffffff;
     }
 
     textarea {
@@ -133,13 +136,15 @@
       box-shadow: 0 4px 6px rgba(102, 126, 234, 0.2);
     }
 
+    /* Hover em todos os botões */
     button:hover {
       background: var(--primary-hover);
-      box-shadow: 0 6px 8px rgba(102, 126, 234, 0.3);
+      box-shadow: 0 6px 10px rgba(102, 126, 234, 0.35);
+      transform: translateY(-1px);
     }
 
     button:active {
-      transform: scale(0.97);
+      transform: scale(0.97) translateY(0);
     }
 
     .material-symbols-outlined {
@@ -158,6 +163,15 @@
       word-break: break-word;
       display: flex;
       align-items: center;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+      position: relative;
+    }
+
+    /* Hover no bloco de resultado para indicar que é clicável */
+    #output:hover {
+      background: var(--output-hover);
+      border-color: var(--primary);
     }
   </style>
 </head>
@@ -185,7 +199,7 @@
       </button>
     </div>
 
-    <div id="output">O resultado aparecerá aqui...</div>
+    <div id="output" title="Clique para copiar">O resultado aparecerá aqui...</div>
   </main>
 
   <script>
@@ -195,10 +209,10 @@
     const encryptBtn = document.getElementById('encryptBtn');
     const decryptBtn = document.getElementById('decryptBtn');
 
+    let currentResultText = 'O resultado aparecerá aqui...';
+
     function shiftChar(char, shift) {
       const code = char.charCodeAt(0);
-
-      // Garante que o shift permaneça dentro do limite do alfabeto (0-25)
       const normalizedShift = ((shift % 26) + 26) % 26;
 
       if (code >= 65 && code <= 90) {
@@ -221,12 +235,30 @@
       const effectiveShift = isEncrypting ? userKey : -userKey;
       
       if (!text.trim()) {
-        outputElement.textContent = 'Por favor, digite um texto válido.';
+        currentResultText = 'Por favor, digite um texto válido.';
+        outputElement.textContent = currentResultText;
         return;
       }
 
-      outputElement.textContent = caesarCipher(text, effectiveShift);
+      currentResultText = caesarCipher(text, effectiveShift);
+      outputElement.textContent = currentResultText;
     }
+
+    // Funcionalidade de copiar ao clicar no output
+    outputElement.addEventListener('click', () => {
+      if (!currentResultText || currentResultText.startsWith('O resultado') || currentResultText.startsWith('Por favor')) {
+        return;
+      }
+
+      navigator.clipboard.writeText(currentResultText).then(() => {
+        const originalText = outputElement.textContent;
+        outputElement.textContent = 'Copiado para a área de transferência! ✨';
+        
+        setTimeout(() => {
+          outputElement.textContent = originalText;
+        }, 1500);
+      });
+    });
 
     encryptBtn.addEventListener('click', () => handleProcess(true));
     decryptBtn.addEventListener('click', () => handleProcess(false));
