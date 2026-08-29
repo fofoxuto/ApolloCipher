@@ -6,12 +6,14 @@
   <title>Apollo Cipher - Cifra de César</title>
   <style>
     :root {
-      --bg-color: #121212;
-      --surface-color: #222222;
-      --text-color: #eeeeee;
-      --border-color: #444444;
-      --accent-color: #00ff00;
-      --accent-hover: #00cc00;
+      --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --card-bg: #ffffff;
+      --text-main: #2d3748;
+      --text-muted: #718096;
+      --border-color: #e2e8f0;
+      --primary: #667eea;
+      --primary-hover: #5a67d8;
+      --output-bg: #f7fafc;
     }
 
     * {
@@ -21,8 +23,8 @@
     }
 
     body {
-      background: var(--bg-color);
-      color: var(--text-color);
+      background: var(--bg-gradient);
+      color: var(--text-main);
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       display: flex;
       flex-direction: column;
@@ -36,72 +38,86 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 15px;
-      background: var(--surface-color);
-      padding: 25px;
-      border-radius: 12px;
-      border: 1px solid var(--border-color);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+      gap: 20px;
+      background: var(--card-bg);
+      padding: 35px 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      width: 100%;
+      max-width: 380px;
     }
 
     h1 {
-      font-size: 1.4rem;
-      letter-spacing: 0.5px;
+      font-size: 1.3rem;
+      color: var(--text-main);
       text-align: center;
+      font-weight: 600;
     }
 
     textarea {
-      width: 300px;
-      height: 100px;
-      background: var(--bg-color);
-      color: var(--text-color);
+      width: 100%;
+      height: 110px;
+      background: #ffffff;
+      color: var(--text-main);
       border: 2px solid var(--border-color);
-      border-radius: 6px;
-      padding: 10px;
+      border-radius: 10px;
+      padding: 12px;
       resize: none;
-      font-size: 1rem;
+      font-size: 0.95rem;
       outline: none;
-      transition: border-color 0.3s;
+      transition: border-color 0.2s, box-shadow 0.2s;
     }
 
     textarea:focus {
-      border-color: var(--accent-color);
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+    }
+
+    textarea::placeholder {
+      color: var(--text-muted);
     }
 
     .actions {
       display: flex;
-      gap: 10px;
+      gap: 12px;
+      width: 100%;
     }
 
     button {
-      background: var(--accent-color);
-      color: #000000;
-      font-weight: bold;
+      flex: 1;
+      background: var(--primary);
+      color: #ffffff;
+      font-weight: 600;
       border: none;
-      padding: 10px 20px;
-      border-radius: 6px;
+      padding: 12px 15px;
+      border-radius: 8px;
       cursor: pointer;
-      transition: background 0.3s, transform 0.1s;
+      font-size: 0.9rem;
+      transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+      box-shadow: 0 4px 6px rgba(102, 126, 234, 0.2);
     }
 
     button:hover {
-      background: var(--accent-hover);
+      background: var(--primary-hover);
+      box-shadow: 0 6px 8px rgba(102, 126, 234, 0.3);
     }
 
     button:active {
-      transform: scale(0.98);
+      transform: scale(0.97);
     }
 
     #output {
-      font-size: 1rem;
-      background: var(--bg-color);
-      color: var(--text-color);
-      border: 2px solid var(--border-color);
+      font-size: 0.95rem;
+      background: var(--output-bg);
+      color: var(--text-main);
+      border: 2px dashed var(--border-color);
       padding: 15px;
-      border-radius: 6px;
-      width: 300px;
-      min-height: 60px;
+      border-radius: 10px;
+      width: 100%;
+      min-height: 70px;
       word-break: break-word;
+      display: flex;
+      align-items: center;
     }
   </style>
 </head>
@@ -117,7 +133,7 @@
       <button id="decryptBtn">Descriptografar</button>
     </div>
 
-    <div id="output">Resultado aparecerá aqui...</div>
+    <div id="output">O resultado aparecerá aqui...</div>
   </main>
 
   <script>
@@ -128,29 +144,23 @@
     const encryptBtn = document.getElementById('encryptBtn');
     const decryptBtn = document.getElementById('decryptBtn');
 
-    // Desloca um único caractere mantendo maiúsculas e minúsculas
     function shiftChar(char, shift) {
       const code = char.charCodeAt(0);
 
-      // Maiúsculas (A-Z)
       if (code >= 65 && code <= 90) {
         return String.fromCharCode(((code - 65 + shift + 26) % 26) + 65);
       }
-      // Minúsculas (a-z)
       if (code >= 97 && code <= 122) {
         return String.fromCharCode(((code - 97 + shift + 26) % 26) + 97);
       }
       
-      // Caracteres especiais e espaços permanecem inalterados
       return char;
     }
 
-    // Aplica a cifra no texto inteiro
     function caesarCipher(text, shift) {
       return text.split('').map(char => shiftChar(char, shift)).join('');
     }
 
-    // Manipula a lógica central de criptografia/decriptografia
     function handleProcess(isEncrypting) {
       const text = inputElement.value;
       const effectiveShift = isEncrypting ? SHIFT_KEY : -SHIFT_KEY;
@@ -163,7 +173,6 @@
       outputElement.textContent = caesarCipher(text, effectiveShift);
     }
 
-    // Vinculação de eventos (Event Listeners)
     encryptBtn.addEventListener('click', () => handleProcess(true));
     decryptBtn.addEventListener('click', () => handleProcess(false));
   </script>
