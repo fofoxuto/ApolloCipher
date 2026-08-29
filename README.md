@@ -4,7 +4,6 @@
 
   <p>
     <img src="https://img.shields.io/badge/Status-Concluído-success?style=for-the-badge" alt="Status" />
-    <img src="https://img.shields.io/badge/License-MIT-blue?style=for-the-badge" alt="License" />
     <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5" />
     <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3" />
     <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript" />
@@ -51,7 +50,7 @@ Como o ApolloCipher é uma aplicação web estática, você não precisa instala
 
 1. Clone o repositório ou baixe os arquivos:
    ```bash
-   git clone https://github.com/N3XUSZ/ApolloCipher.git
+   git clone https://github.com/fofoxuto/ApolloCipher.git
    ```
 2. Abra o arquivo `index.html` diretamente em qualquer navegador moderno.
 
@@ -59,7 +58,7 @@ Como o ApolloCipher é uma aplicação web estática, você não precisa instala
 
 ## 📬 Contato & Autor
 
-Criado por **fofoxuto** (N3XUSZ). 
+Criado por **fofoxuto**. 
 
 - **Instagram:** [@fofoxuto](https://instagram.com/fofoxuto)
-- **GitHub:** [N3XUSZ](https://github.com/N3XUSZ)
+- **GitHub:** [N3XUSZ](https://github.com/fofoxuto)
