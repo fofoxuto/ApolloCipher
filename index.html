@@ -1,105 +1,172 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>APOLLO CIPHER</title>
-<style>
-  body {
-    background: #121212;
-    color: #eee;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-  }
-  h1 {
-    margin-bottom: 15px;
-  }
-  textarea {
-    width: 300px;
-    height: 100px;
-    background: #222;
-    color: #eee;
-    border: 2px solid #444;
-    border-radius: 6px;
-    padding: 10px;
-    resize: none;
-    font-size: 16px;
-  }
-  button {
-    background: #0f0;
-    color: #000;
-    font-weight: bold;
-    border: none;
-    padding: 10px 25px;
-    margin: 10px;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background 0.3s;
-  }
-  button:hover {
-    background: #0c0;
-  }
-  .container {
-    display: flex;
-    gap: 20px;
-  }
-  #output {
-    margin-top: 15px;
-    font-size: 18px;
-    background: #222;
-    padding: 15px;
-    border-radius: 6px;
-    width: 300px;
-    min-height: 60px;
-    word-break: break-word;
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apollo Cipher - Cifra de César</title>
+  <style>
+    :root {
+      --bg-color: #121212;
+      --surface-color: #222222;
+      --text-color: #eeeeee;
+      --border-color: #444444;
+      --accent-color: #00ff00;
+      --accent-hover: #00cc00;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--bg-color);
+      color: var(--text-color);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .cipher-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      background: var(--surface-color);
+      padding: 25px;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    }
+
+    h1 {
+      font-size: 1.4rem;
+      letter-spacing: 0.5px;
+      text-align: center;
+    }
+
+    textarea {
+      width: 300px;
+      height: 100px;
+      background: var(--bg-color);
+      color: var(--text-color);
+      border: 2px solid var(--border-color);
+      border-radius: 6px;
+      padding: 10px;
+      resize: none;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    textarea:focus {
+      border-color: var(--accent-color);
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    button {
+      background: var(--accent-color);
+      color: #000000;
+      font-weight: bold;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.1s;
+    }
+
+    button:hover {
+      background: var(--accent-hover);
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    #output {
+      font-size: 1rem;
+      background: var(--bg-color);
+      color: var(--text-color);
+      border: 2px solid var(--border-color);
+      padding: 15px;
+      border-radius: 6px;
+      width: 300px;
+      min-height: 60px;
+      word-break: break-word;
+    }
+  </style>
 </head>
 <body>
 
-<h1>Cifra de César (chave 4)</h1>
+  <main class="cipher-card">
+    <h1>Cifra de César (Chave: 4)</h1>
+    
+    <textarea id="inputText" placeholder="Digite a mensagem aqui..."></textarea>
 
-<textarea id="inputText" placeholder="Digite a mensagem aqui..."></textarea>
+    <div class="actions">
+      <button id="encryptBtn">Criptografar</button>
+      <button id="decryptBtn">Descriptografar</button>
+    </div>
 
-<div class="container">
-  <button onclick="cifrar()">Criptografar</button>
-  <button onclick="decifrar()">Descriptografar</button>
-</div>
+    <div id="output">Resultado aparecerá aqui...</div>
+  </main>
 
-<div id="output" placeholder="Resultado aqui..."></div>
+  <script>
+    const SHIFT_KEY = 4;
 
-<script>
-  const chave = 4;
+    const inputElement = document.getElementById('inputText');
+    const outputElement = document.getElementById('output');
+    const encryptBtn = document.getElementById('encryptBtn');
+    const decryptBtn = document.getElementById('decryptBtn');
 
-  function cifrar() {
-    const texto = document.getElementById('inputText').value;
-    document.getElementById('output').innerText = caesar(texto, chave);
-  }
-
-  function decifrar() {
-    const texto = document.getElementById('inputText').value;
-    document.getElementById('output').innerText = caesar(texto, -chave);
-  }
-
-  function caesar(str, shift) {
-    return str.split('').map(char => {
+    // Desloca um único caractere mantendo maiúsculas e minúsculas
+    function shiftChar(char, shift) {
       const code = char.charCodeAt(0);
-      // Maiúsculas A-Z
+
+      // Maiúsculas (A-Z)
       if (code >= 65 && code <= 90) {
         return String.fromCharCode(((code - 65 + shift + 26) % 26) + 65);
       }
-      // Minúsculas a-z
+      // Minúsculas (a-z)
       if (code >= 97 && code <= 122) {
         return String.fromCharCode(((code - 97 + shift + 26) % 26) + 97);
       }
-      // Outros caracteres ficam iguais
+      
+      // Caracteres especiais e espaços permanecem inalterados
       return char;
-    }).join('');
-  }
-</script>
+    }
+
+    // Aplica a cifra no texto inteiro
+    function caesarCipher(text, shift) {
+      return text.split('').map(char => shiftChar(char, shift)).join('');
+    }
+
+    // Manipula a lógica central de criptografia/decriptografia
+    function handleProcess(isEncrypting) {
+      const text = inputElement.value;
+      const effectiveShift = isEncrypting ? SHIFT_KEY : -SHIFT_KEY;
+      
+      if (!text.trim()) {
+        outputElement.textContent = 'Por favor, digite um texto válido.';
+        return;
+      }
+
+      outputElement.textContent = caesarCipher(text, effectiveShift);
+    }
+
+    // Vinculação de eventos (Event Listeners)
+    encryptBtn.addEventListener('click', () => handleProcess(true));
+    decryptBtn.addEventListener('click', () => handleProcess(false));
+  </script>
 
 </body>
 </html>
