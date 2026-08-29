@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Apollo Cipher - Cifra de César</title>
+  
+  <!-- Google Fonts - Material Symbols (Material 3) -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
   <style>
     :root {
       --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -44,7 +48,7 @@
       border-radius: 16px;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
       width: 100%;
-      max-width: 380px;
+      max-width: 400px;
     }
 
     h1 {
@@ -85,6 +89,10 @@
 
     button {
       flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
       background: var(--primary);
       color: #ffffff;
       font-weight: 600;
@@ -104,6 +112,11 @@
 
     button:active {
       transform: scale(0.97);
+    }
+
+    /* Estilização padrão para os ícones do Material Symbols */
+    .material-symbols-outlined {
+      font-size: 1.2rem;
     }
 
     #output {
@@ -129,8 +142,14 @@
     <textarea id="inputText" placeholder="Digite a mensagem aqui..."></textarea>
 
     <div class="actions">
-      <button id="encryptBtn">Criptografar</button>
-      <button id="decryptBtn">Descriptografar</button>
+      <button id="encryptBtn">
+        <span class="material-symbols-outlined">lock</span>
+        Criptografar
+      </button>
+      <button id="decryptBtn">
+        <span class="material-symbols-outlined">lock_open</span>
+        Descriptografar
+      </button>
     </div>
 
     <div id="output">O resultado aparecerá aqui...</div>
