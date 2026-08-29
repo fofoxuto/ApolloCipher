@@ -1,58 +1,65 @@
-# 🚀 Apollo Cipher
+<div align="center">
+  <h1>🔒 Apollo Cipher</h1>
+  <p><em>Uma ferramenta web moderna, minimalista e elegante para criptografia baseada na Cifra de César.</em></p>
 
-Uma aplicação web simples, moderna e intuitiva para criptografar e descriptografar mensagens utilizando a clássica **Cifra de César** com uma chave de deslocamento fixa em **4**.
-
-## 🎨 Funcionalidades e Características
-
-- **Interface Dark Mode**: Design moderno e elegante com tons escuros, otimizado para conforto visual.
-- **Criptografia e Descriptografia**: Suporte bidirecional para codificar e decodificar mensagens rapidamente.
-- **Preservação de Caracteres**: O algoritmo diferencia letras maiúsculas de minúsculas e mantém intactos números, espaços e caracteres especiais/pontuação.
-- **Zero Dependências**: Construído puramente com tecnologias nativas web (HTML5, CSS3 e JavaScript Vanilla), sem necessidade de frameworks ou bibliotecas externas.
-
-## 🛠️ Tecnologias Utilizadas
-
-- **HTML5**: Estruturação semântica da interface.
-- **CSS3**: Estilização customizada, flexbox e transições suaves.
-- **JavaScript**: Lógica matemática e manipulação do DOM para o cálculo da Cifra de César.
+  <p>
+    <img src="https://img.shields.io/badge/Status-Concluído-success?style=for-the-badge" alt="Status" />
+    <img src="https://img.shields.io/badge/License-MIT-blue?style=for-the-badge" alt="License" />
+    <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5" />
+    <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3" />
+    <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript" />
+  </p>
+</div>
 
 ---
 
-## ⚙️ Como Funciona o Algoritmo
+## 🎨 Sobre o Projeto
 
-A Cifra de César é uma técnica de substituição onde cada letra do texto é deslocada por um número fixo de posições no alfabeto. 
-
-Neste projeto:
-- **Chave (`shift`)**: `4`
-- **Criptografar**: Move o caractere 4 posições à frente no alfabeto (ex: `A` → `E`, `B` → `F`).
-- **Descriptografar**: Move o caractere 4 posições para trás (ex: `E` → `A`).
+O **ApolloCipher** foi totalmente reescrito para trazer uma experiência visual e interativa de alto nível. Inspirado em conceitos modernos de design de interfaces (como *Glassmorphism*, *Liquid Glass* e componentes em formato de cápsula), este projeto transforma a clássica **Cifra de César** em uma ferramenta web limpa, fluida e extremamente agradável de usar.
 
 ---
 
-## 🚀 Como Executar o Projeto
+## ✨ Funcionalidades
 
-1. Copie o código fonte da aplicação e salve-o em um arquivo com a extensão `.html` (por exemplo, `index.html`).
-2. Dê um duplo clique no arquivo salvo para abri-lo em qualquer navegador web moderno (Google Chrome, Mozilla Firefox, Microsoft Edge, etc.).
-3. Insira o texto desejado na caixa de texto e clique em **Criptografar** ou **Descriptografar**.
+- **🎛️ Chave de Deslocamento Dinâmica:** Permite configurar o deslocamento (de 1 a 25) com facilidade.
+- **🔐 Criptografia e Descriptografia Instantânea:** Botões dedicados e responsivos para alternar entre codificar e decodificar mensagens.
+- **📋 Cópia com 1 Clique:** Clique diretamente no resultado para copiá-lo para a área de transferência com feedback visual elegante.
+- **🌙 Dark Theme Imersivo:** Estilo visual escuro refinado com gradientes radiais suaves e efeitos de desfoque (`backdrop-filter`).
+- **⚡ 100% Client-Side:** Desenvolvido puramente em Vanilla JavaScript, HTML5 e CSS3, sem dependências pesadas.
 
 ---
 
-## 💻 Exemplo do Código JavaScript Principal
+## 🚀 Tecnologias Utilizadas
 
-```javascript
-const chave = 4;
+* **HTML5** — Estrutura semântica.
+* **CSS3** — Estilização avançada com Variáveis CSS, Flexbox, Glassmorphism e Material Symbols.
+* **JavaScript (ES6+)** — Lógica de manipulação da Cifra de César e eventos de interface.
 
-function caesar(str, shift) {
-  return str.split('').map(char => {
-    const code = char.charCodeAt(0);
-    // Maiúsculas A-Z
-    if (code >= 65 && code <= 90) {
-      return String.fromCharCode(((code - 65 + shift + 26) % 26) + 65);
-    }
-    // Minúsculas a-z
-    if (code >= 97 && code <= 122) {
-      return String.fromCharCode(((code - 97 + shift + 26) % 26) + 97);
-    }
-    // Outros caracteres ficam iguais
-    return char;
-  }).join('');
-}
+---
+
+## 🖥️ Prévia da Interface
+
+O layout foi desenhado para ser focado em produtividade e estética minimalista:
+- **Painéis em Cápsula:** Elementos flutuantes com bordas sutis e sombras profundas.
+- **Tipografia limpa e moderna:** Cores de destaque em tons de índigo (`#6366f1`) para uma experiência visual sofisticada.
+
+---
+
+## 📦 Como Executar o Projeto
+
+Como o ApolloCipher é uma aplicação web estática, você não precisa instalar nenhum ambiente complexo!
+
+1. Clone o repositório ou baixe os arquivos:
+   ```bash
+   git clone https://github.com/N3XUSZ/ApolloCipher.git
+   ```
+2. Abra o arquivo `index.html` diretamente em qualquer navegador moderno.
+
+---
+
+## 📬 Contato & Autor
+
+Criado por **fofoxuto** (N3XUSZ). 
+
+- **Instagram:** [@fofoxuto](https://instagram.com/fofoxuto)
+- **GitHub:** [N3XUSZ](https://github.com/N3XUSZ)
