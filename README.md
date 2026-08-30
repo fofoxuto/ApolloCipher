@@ -61,4 +61,4 @@ Como o ApolloCipher é uma aplicação web estática, você não precisa instala
 Criado por **fofoxuto**. 
 
 - **Instagram:** [@fofoxuto](https://instagram.com/fofoxuto)
-- **GitHub:** [N3XUSZ](https://github.com/fofoxuto)
+- **GitHub:** [FOFOXUTO](https://github.com/fofoxuto)
